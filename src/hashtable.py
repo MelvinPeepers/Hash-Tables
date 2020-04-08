@@ -1,30 +1,35 @@
 # '''
 # Linked List hash table key/value pair
 # '''
+
+
 class LinkedPair:
     def __init__(self, key, value):
         self.key = key
         self.value = value
         self.next = None
 
+
 class HashTable:
     '''
     A hash table that with `capacity` buckets
     that accepts string keys
     '''
+
     def __init__(self, capacity):
         self.capacity = capacity  # Number of buckets in the hash table
         self.storage = [None] * capacity
-
 
     def _hash(self, key):
         '''
         Hash an arbitrary key and return an integer.
 
         You may replace the Python hash with DJB2 as a stretch goal.
+
+        Python HASH function
+
         '''
         return hash(key)
-
 
     def _hash_djb2(self, key):
         '''
@@ -34,14 +39,12 @@ class HashTable:
         '''
         pass
 
-
     def _hash_mod(self, key):
         '''
         Take an arbitrary key and return a valid integer index
         within the storage capacity of the hash table.
         '''
         return self._hash(key) % self.capacity
-
 
     def insert(self, key, value):
         '''
@@ -52,11 +55,11 @@ class HashTable:
 
         # Part 2: Change this so that hash collisions are handled with Linked List Chaining.
 
-        Fill this in.
+        Fill this in. 
+
+        This
         '''
         pass
-
-
 
     def remove(self, key):
         '''
@@ -65,9 +68,10 @@ class HashTable:
         Print a warning if the key is not found.
 
         Fill this in.
+
+        THIS
         '''
         pass
-
 
     def retrieve(self, key):
         '''
@@ -76,9 +80,9 @@ class HashTable:
         Returns None if the key is not found.
 
         Fill this in.
+        THIS
         '''
         pass
-
 
     def resize(self):
         '''
@@ -86,9 +90,9 @@ class HashTable:
         rehash all key/value pairs.
 
         Fill this in.
+        AND THIS
         '''
         pass
-
 
 
 if __name__ == "__main__":
