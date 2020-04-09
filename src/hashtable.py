@@ -65,16 +65,17 @@ class HashTable:
         # Hashmod the key to find the bucket
         index = self._hash_mod(key)  # Compute index of key
         # Check if a pair already exisit in the bucket
-        pair = self.storage[index]
+        pair = self.storage[index]  # Go to the node corresponding to the hash
         if pair is not None:
-            # If so, overwrite the key/value and throw a warning
+            # If bucket is empty, overwrite the key/value and throw a warning
             if pair.key != key:
                 print("Warning: Overwriting value")
                 pair.key = key
             pair.value = value
         else:
-            # If not, Create a LinkedPair and place it in the bucket
+            # If bucket is not empty, create a LinkedPair and place it in the bucket
             self.storage[index] = LinkedPair(key, value)
+
         #array_index = self._hash_mod(self._hash(key))
         #self.storage[array_index] = value
 
@@ -88,8 +89,7 @@ class HashTable:
 
         THIS
         '''
-        index = self._hash_mod(key)
-
+        index = self._hash_mod(key)  # Compute index of key
         # Check if a pair exists in the bucket with matching keys
         if self.storage[index] is not None and self.storage[index].key == key:
             # If so, remove that pair
@@ -109,7 +109,6 @@ class HashTable:
         '''
         # Get the index from hashmod
         index = self._hash_mod(key)
-
         # Check if a pair exists in the bucket with matching keys
         if self.storage[index] is not None and self.storage[index].key == key:
             # If so, return the value
