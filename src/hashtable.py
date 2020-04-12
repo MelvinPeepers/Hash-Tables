@@ -63,18 +63,15 @@ class HashTable:
 
         This
         '''
-        self.size += 1  # increment size
-        # Hashmod the key to find the bucket
-        index = self._hash_mod(key)  # Compute index of key
-        # Check if a pair already exisit in the bucket
-        pair = self.storage[index]  # Go to the node corresponding to the hash
+        self.size += 1  # increment the internal size by 1
+        index = self._hash_mod(key)  # find the index in the internal array
+        pair = self.storage[index]  # find the pair at that index
 
-        # if bucket is empty
-        if pair is None:
-            # create pair, add it return
+        if pair is None:  # if the pair is none, there's nothing there yet
+            # assign the pair to the LinkedPair(key, value)
             self.storage[index] = LinkedPair(key, value)
             return
-            # collision iterate to the end of the linked list at provided index
+            # collision already a pair there
         prev = pair
         while pair is not None:
             prev = pair
@@ -105,35 +102,40 @@ class HashTable:
 
         THIS
         '''
-        # index = self._hash_mod(key)  # Compute index of key
-        # pair = self.storage[index]
-        # prev = None
-
-        # while pair is not None and pair.key != key:
-        #    prev = pair
-        #    pair = pair.next
-
-        # if pair is None:
-        #    return None
-
-        # else:
-        #    self.size -= 1
-        #    result = pair.value
-        #    if prev is None:
-        #        pair = None
-        #    else:
-        #        prev.next = prev.next.next
-
-        #    return result
-
         index = self._hash_mod(key)  # Compute index of key
-        # Check if a pair exists in the bucket with matching keys
-        if self.storage[index] is not None and self.storage[index].key == key:
-            # If so, remove that pair
-            self.storage[index] = None
+        pair = self.storage[index]
+        prev = None
+        while pair is not None and pair.key != key:
+            prev = pair
+            pair = pair.next
+
+        if pair is None:
+            return None
+
         else:
-            # Else print warning
-            print("Warning: Key does not exist")
+            self.size -= 1
+            result = pair.value
+
+            if prev is None:
+                self.storage[index] = pair.next
+
+            else:
+                prev.next = prev.next.next
+
+            return result
+
+        # index = self._hash_mod(key)  # Compute index of key
+        # Check if a pair exists in the bucket with matching keys
+        # if self.storage[index] is not None and self.storage[index].key == key:
+        #    # If so, remove that pair
+        #    self.storage[index] = None
+        # else:
+        #    # Else print warning
+        #    print("Warning: Key does not exist")
+
+    # def remove(self, key):
+    #    index = self._hash_mod(key)
+    #    self.storage[index] = None
 
     def retrieve(self, key):
         '''
@@ -144,16 +146,16 @@ class HashTable:
         Fill this in.
         THIS
         '''
-        # Get the index from hashmod
-        index = self._hash_mod(key)
 
+        # compute the index using our hash function
+        index = self._hash_mod(key)
         pair = self.storage[index]
 
-        while pair is not None and pair.key != key:
+        while pair is not None and pair.key != key:  # find the pair or the end of the list
             pair = pair.next
 
         if pair is None:
-            # Not found
+            # reached the end and nothing found or there was never anything there
             return None
 
         else:
